@@ -56,7 +56,7 @@ namespace LouisBurgers.Services.Implementations
             var order = new Order
             {
                 totalPrice = 0,
-                orderBurger = new List<orderBurger>()
+                //orderBurger = new List<orderBurger>()
             };
 
             //crear los registros de orderburger y asociarlos a la orden
@@ -71,7 +71,7 @@ namespace LouisBurgers.Services.Implementations
                 // Calcular el precio total (si es necesario)
                 // Asegúrate de que tienes alguna lógica para obtener el precio de la hamburguesa y el extra
                 //order.totalPrice += GetBurgerPrice(burger.idBurger) + (burger.idExtra.HasValue ? GetExtraPrice(burger.idExtra.Value) : 0);
-        }
+            }
         //aGREGAR LA ORDEN al dbcontext
         _context.order.Add(order);
             await _context.SaveChangesAsync();

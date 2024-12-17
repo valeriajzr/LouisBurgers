@@ -1,4 +1,5 @@
-﻿using LouisBurgers.Models;
+﻿using Azure;
+using LouisBurgers.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 
@@ -25,28 +26,21 @@ namespace LouisBurgers.Data
             modelBuilder.Entity<Burgers>().HasNoKey();
             modelBuilder.Entity<Extras>().HasKey("idExtra");
             modelBuilder.Entity<Burger>().HasKey("idBurger");
+            modelBuilder.Entity<Order>().HasKey("idOrder");
 
-            modelBuilder.Entity<Burger>()
-               .HasMany(b => b.orderBurger)
-               .WithMany(b => b.Order)
-               .UsingEntity(
-                   "orderBurger",
-                   l => l.HasOne(typeof(Tag)).WithMany().HasForeignKey("idBurger").HasPrincipalKey(nameof(Burger.idBurger)),
-                   r => r.HasOne(typeof(Post)).WithMany().HasForeignKey("idOrder").HasPrincipalKey(nameof(Order.idOrder)),
-                   j => j.HasKey("idBurger", "idOrder"));
-        
+            // Configuración de la relación muchos a muchos usando orderBurger
+            modelBuilder.Entity<orderBurger>()
+                .HasKey(ob => new { ob.idOrder, ob.idBurger }); // Clave compuesta
 
-        //nuevo
-        modelBuilder.Entity<Order>(entity =>
-            {
-                entity.HasKey("idOrder");
-                entity.Property("idOrder").ValueGeneratedOnAdd();
-                entity.HasMany("orderBurger");
-            });
+            modelBuilder.Entity<orderBurger>()
+                .HasOne(ob => ob.order)
+                .WithMany(o => o.orderBurger)
+                .HasForeignKey(ob => ob.idOrder);
 
-
-            //nuevo - Configurar orderBurger como tabla intermedia
-            modelBuilder.Entity<orderBurger>().HasKey(ob => new {ob.idOrder, ob.idBurger}); //clave compuesta
+            modelBuilder.Entity<orderBurger>()
+                .HasOne(ob => ob.burger)
+                .WithMany(b => b.orderBurger)
+                .HasForeignKey(ob => ob.idBurger);
         }
     }
 }
