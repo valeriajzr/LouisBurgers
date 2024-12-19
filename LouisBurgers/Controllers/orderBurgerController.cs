@@ -19,25 +19,7 @@ namespace LouisBurgers.Controllers
 
         [HttpPost("createOrderRequest", Name = "createOrderRequest")]
         //este es el nombre de la ruta que tiene en el swagger
-        /* Comento esto porque lo cambio por toda lo siguiente
-        public async Task<IActionResult> CreateOrder([FromBody] orderBurger createOrder)
-        {
-            if (createOrder == null)
-            {
-                return BadRequest("Invalid request.");
-            }
-
-            try
-            {
-                int orderId = await _burgerService.createOrderAsync(createOrder);
-                return CreatedAtAction(nameof(CreateOrder), new { id = orderId }, orderId);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
-         */
+     
         public async Task<IActionResult> CreateOrder([FromBody] createOrderRequest createOrder)
         {
             if (createOrder == null || createOrder.Burger == null || !createOrder.Burger.Any())
