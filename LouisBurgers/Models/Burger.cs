@@ -5,6 +5,6 @@
         public int idBurger { get; set; }
         public string name { get; set;}
         public int price { get; set; }
-        public List<orderBurger> orderBurger { get; } = new List<orderBurger>();
+        public List<orderBurger> orderBurger { get; set;  } = new List<orderBurger>();
     }
 }
