@@ -13,7 +13,7 @@ namespace LouisBurgers.Data
         }
 
         public DbSet<Burgers> Burgers { get; set; }
-        public DbSet<Extras> Extras { get; set; }
+        public DbSet<Extras> extra { get; set; }
         public DbSet<orderBurger> orderBurger { get; set; }
         public DbSet<Burger> Burger { get; set; }
 
