@@ -30,6 +30,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors(options =>
+{
+    options.AllowAnyOrigin();
+    options.AllowAnyMethod();
+    options.AllowAnyHeader();
+}); // allows the front end to call the APIs and to respond them
+    // not the best option but dont know why doesnt allow me to specify default policiy with my specific route. 
+
 app.UseAuthorization();
 
 app.MapControllers();
